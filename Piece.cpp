@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Piece.hpp"
-#include "ChessBoard.hpp"
+#include "ChessBoard.h"
 #include "enums.hpp"
 
 using namespace std;

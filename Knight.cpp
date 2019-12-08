@@ -1,7 +1,7 @@
 #include<iostream>
 #include"Knight.hpp"
 #include "Piece.hpp"
-#include"ChessBoard.hpp"
+#include"ChessBoard.h"
 
 using namespace std;
 

@@ -2,7 +2,7 @@
 #include"King.hpp"
 #include"Rook.hpp"
 #include"Piece.hpp"
-#include"ChessBoard.hpp"
+#include"ChessBoard.h"
 
 using namespace std;
 

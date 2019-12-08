@@ -9,8 +9,8 @@ $(EXE): $(OBJ)
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $<
 
-ChessMain.o: ChessBoard.hpp Exceptions.hpp	
-ChessBoard.o: ChessBoard.hpp Pawn.hpp enums.hpp Exceptions.hpp
+ChessMain.o: ChessBoard.h Exceptions.hpp	
+ChessBoard.o: ChessBoard.h Pawn.hpp enums.hpp Exceptions.hpp
 Piece.o: Piece.hpp 	
 Pawn.o: Pawn.hpp Piece.hpp
 Exceptions.o: Exceptions.hpp			

@@ -1,6 +1,6 @@
 #include<iostream>
 #include<cstring>
-#include"ChessBoard.hpp"
+#include"ChessBoard.h"
 #include"Exceptions.hpp"
 #include"Piece.hpp"
 #include"Rook.hpp"
