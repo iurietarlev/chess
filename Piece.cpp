@@ -8,6 +8,8 @@ using namespace std;
 Piece::Piece(color c, shape s, ChessBoard * cb) :
   c(c), s(s), cb(cb){}
 
+Piece::~Piece(){}
+
 shape Piece::getShape(){ return s; }
 
 color Piece::getColor(){ return c; }
@@ -102,11 +104,3 @@ bool Piece::diagonal_path_check(int row_from, int col_from, int row_to,
   return true;
   
 }
-   
-
-
-/*
-bool Piece::is_move_valid(int row_from, int col_from,
-			  int row_to, int col_to)
-{ return false; }
-*/

@@ -1,9 +1,7 @@
-#include<iostream>
-#include "Pawn.hpp"
-#include "Piece.hpp"
-#include "ChessBoard.h"
+#include"Pawn.hpp"
+#include"Piece.hpp"
+#include"ChessBoard.h"
 
-using namespace std;
 
 Pawn::Pawn(color c, shape s, ChessBoard* cb)
  : Piece(c, s, cb){};
@@ -13,7 +11,7 @@ Pawn::~Pawn() {}
 
 bool Pawn::is_move_valid(int row_from, int col_from, int row_to, int col_to) {
   
-  //check if move in straight line
+  //check if move in straight line is valid
   if(straight_path_check(row_from, col_from, row_to, col_to, cb)){
     if(cb->getPiece(row_to, col_to) == nullptr){
       if(c == WHITE){
@@ -50,5 +48,3 @@ bool Pawn::is_move_valid(int row_from, int col_from, int row_to, int col_to) {
   
   return false;
 }
-
-

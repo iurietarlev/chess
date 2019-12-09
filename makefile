@@ -12,16 +12,17 @@ $(EXE): $(OBJ)
 
 #-include $(OBJ:.o = .d)
 
-ChessMain.o: ChessBoard.h Exceptions.hpp	
-ChessBoard.o: ChessBoard.h Pawn.hpp enums.hpp Exceptions.hpp
-Piece.o: Piece.hpp 	
-Pawn.o: Pawn.hpp Piece.hpp
+ChessMain.o: ChessBoard.h Exceptions.hpp 
+ChessBoard.o: ChessBoard.h enums.hpp Exceptions.hpp Piece.hpp \
+	Pawn.hpp Rook.hpp Bishop.hpp Knight.hpp King.hpp Queen.hpp
+Piece.o: Piece.hpp enums.hpp ChessBoard.h
+Pawn.o: Pawn.hpp Piece.hpp ChessBoard.h
 Exceptions.o: Exceptions.hpp			
-Rook.o: Rook.hpp Piece.hpp
-Bishop.o: Bishop.hpp Piece.hpp
-King.o: King.hpp Rook.hpp Piece.hpp
-Queen.o: Queen.hpp Piece.hpp
-Knight.o: Knight.hpp Piece.hpp	
+Rook.o: Rook.hpp Piece.hpp ChessBoard.h
+Bishop.o: Bishop.hpp Piece.hpp ChessBoard.h
+King.o: King.hpp Rook.hpp Piece.hpp ChessBoard.h
+Queen.o: Queen.hpp Piece.hpp ChessBoard.h
+Knight.o: Knight.hpp Piece.hpp ChessBoard.h
 
 .PHONY: clean
 
