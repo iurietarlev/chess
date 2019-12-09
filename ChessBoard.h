@@ -25,6 +25,7 @@ class ChessBoard{
   int black_king_row;
   int black_king_col;
 
+  bool game_finished;
 
   
   /* Validation helper functions (throwing relevant exceptions if invalid) */

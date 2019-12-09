@@ -65,3 +65,11 @@ NotYourTurn::NotYourTurn(const string &piece_clr):
 NotYourTurn::~NotYourTurn(){}
 
 
+GameOver::GameOver():
+  AnyError(){
+  explanation = "The game is over, use resetBoard \
+function to restart the game and make moves!";
+}
+GameOver::~GameOver(){}
+
+

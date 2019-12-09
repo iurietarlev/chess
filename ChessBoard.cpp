@@ -11,7 +11,7 @@
 
 using namespace std;
 
-ChessBoard::ChessBoard() : turn(WHITE) 
+ChessBoard::ChessBoard() 
 {setBoard();}
 
 ChessBoard::~ChessBoard()  
@@ -30,13 +30,14 @@ void ChessBoard::cleanBoard(){
 void ChessBoard::resetBoard(){
   cleanBoard();
   setBoard();
-  turn = WHITE;
 }
 
-	 
+
 void ChessBoard::setBoard(){
   cout << "A new chess game is started!" << endl;
   nr_of_pieces_left = 32;
+  turn = WHITE;
+  game_finished = false;
   
   for(int row = 0; row < 8; row++)
     for(int col = 0; col < 8; col++)
@@ -86,16 +87,19 @@ void ChessBoard::setBoard(){
 
 void ChessBoard::submitMove(const char* from, const char* to){
 
-  int row_from = convert_char_to_int(from[1]);
-  int col_from = convert_char_to_int(from[0]);  
-  int row_to = convert_char_to_int(to[1]);
-  int col_to = convert_char_to_int(to[0]);
+  try{ 
+    if(game_finished) throw GameOver();    
   
-  string piece_color;
-  string piece_shape;
+    int row_from = convert_char_to_int(from[1]);
+    int col_from = convert_char_to_int(from[0]);  
+    int row_to = convert_char_to_int(to[1]);
+    int col_to = convert_char_to_int(to[0]);
   
-  //check for valid position
-  try{
+    string piece_color;
+    string piece_shape;
+  
+    //check for valid position
+  
     validate_pos(from);
     validate_pos(to);
 
@@ -115,58 +119,57 @@ void ChessBoard::submitMove(const char* from, const char* to){
     movePiece(row_from, col_from, row_to, col_to);
 
     validate_no_check(row_from, col_from, row_to, col_to, to);
-    
-  }
-  catch(const exception& e){
-    cout << e.what() << endl;
-    return;
-  }
+   
 
-  //record if any of rooks or kings moved from default pos
-  if(is_kg(row_to, col_to))
-    static_cast<King*>(board[row_to][col_to])->already_moved = true;
+    //record if any of rooks or kings moved from default pos
+    if(is_kg(row_to, col_to))
+      static_cast<King*>(board[row_to][col_to])->already_moved = true;
   
-  if(is_rook(row_to, col_to))
-    static_cast<Rook*>(board[row_to][col_to])->already_moved = true;
+    if(is_rook(row_to, col_to))
+      static_cast<Rook*>(board[row_to][col_to])->already_moved = true;
 
   
-  //print statement for valid move
-  cout << piece_color << "'s " << piece_shape << " moves from "
-       << from << " to " << to;
+    //print statement for valid move
+    cout << piece_color << "'s " << piece_shape << " moves from "
+	 << from << " to " << to;
   
-  //print statement addition if opponent's piece attacked
-  if(deleted_piece != nullptr)
-    cout << " taking "
-	 << convert_col_to_string(deleted_piece->getColor()) << "'s "
-	 << convert_shape_to_string(deleted_piece->getShape());
+    //print statement addition if opponent's piece attacked
+    if(deleted_piece != nullptr)
+      cout << " taking "
+	   << convert_col_to_string(deleted_piece->getColor()) << "'s "
+	   << convert_shape_to_string(deleted_piece->getShape());
 
-  cout<< endl;
+    cout<< endl;
   
 
-  //deallocate memory for deleted piece
-  if(deleted_piece != nullptr){
-    nr_of_pieces_left--;
-    delete deleted_piece;}
+    //deallocate memory for deleted piece
+    if(deleted_piece != nullptr){
+      nr_of_pieces_left--;
+      delete deleted_piece;
+    }
   
-  color opposite_turn = (turn==BLACK) ? WHITE : BLACK;
-  bool check_opposite = is_in_check(opposite_turn);
+    color opposite_turn = (turn==BLACK) ? WHITE : BLACK;
+    bool check_opposite = is_in_check(opposite_turn);
 
-  //check the following and throw exceptions to main if true
-  try{
+    //check the following and throw exceptions to main if true
+
     is_in_checkmate(opposite_turn, check_opposite);
     is_stalemate(opposite_turn, check_opposite);
     is_draw();
+
+    
+    if(check_opposite)
+      cout << convert_col_to_string(opposite_turn)
+	   << " is in check" << endl;
+    
+    turn = opposite_turn;
+    
   }
   catch(const exception& e){
     cout << e.what() << endl;
     return;
   }
-    
-  if(check_opposite)
-    cout << convert_col_to_string(opposite_turn)
-	 << " is in check" << endl;
-    
-  turn = opposite_turn;
+  
 }
 
 
@@ -281,6 +284,7 @@ void ChessBoard::validate_castling(int row_from, int col_from,
 void ChessBoard::is_in_checkmate(color clr, bool opponent_check){
   if(opponent_check && !kg_can_run_away(clr) &&
      !kg_can_be_shielded(clr)){
+    game_finished = true;
     throw CheckMate(convert_col_to_string(clr)); 
   }
 }
@@ -288,13 +292,17 @@ void ChessBoard::is_in_checkmate(color clr, bool opponent_check){
 void ChessBoard::is_stalemate(color clr, bool opponent_check){
   if(!opponent_check && !kg_can_run_away(clr) &&
      !kg_can_be_shielded(clr)){
+    game_finished = true;
     throw StaleMate();
   }
 }
 
 void ChessBoard::is_draw(){
   if(nr_of_pieces_left == 2)
-    throw Draw();
+    {
+      game_finished = true;
+      throw Draw();
+    }
 }
 
 bool ChessBoard::is_in_check(color c){

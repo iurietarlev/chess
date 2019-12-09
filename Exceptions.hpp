@@ -63,6 +63,12 @@ public :
 };
 
 
+class GameOver : public AnyError {
+public :
+  GameOver ();
+  ~GameOver() override;
+};
+
 
 
 
