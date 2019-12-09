@@ -71,15 +71,14 @@ int main() {
     cb.submitMove("E2", "E6");
     cb.submitMove("F7", "E6");
     cout << '\n';
-
+    
     cb.submitMove("D3", "G6");
     cout << '\n';
+    
+  }
+  catch(const exception& AnyError){
+    cout << AnyError.what() << endl;
+  }
 
-    
-  }
-  catch(const exception& e){
-    cout << e.what() << endl;
-  }
-    
   return 0;
 }

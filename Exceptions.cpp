@@ -12,7 +12,6 @@ const char * AnyError:: what () const noexcept {
   return explanation.c_str ();
 }
 
-
   
 StaleMate::StaleMate():
   AnyError(){
@@ -42,11 +41,6 @@ CanNotMove::CanNotMove(const string &clr, const string &shp, const string &to):
 CanNotMove::~CanNotMove(){}
 
 
-
-
-
-
-
 InvalidPos::InvalidPos(const string &pos):
   AnyError(){
   explanation = "Invalid position: "
@@ -55,16 +49,12 @@ InvalidPos::InvalidPos(const string &pos):
 InvalidPos::~InvalidPos(){}
 
 
-
 NoPieceAtPos::NoPieceAtPos(const string &pos):
   AnyError(){
   explanation = "There is no piece at position "
     + pos + "!";
 }
 NoPieceAtPos::~NoPieceAtPos(){}
-
-
-
 
 
 NotYourTurn::NotYourTurn(const string &piece_clr):
