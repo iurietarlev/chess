@@ -169,9 +169,7 @@ void ChessBoard::submitMove(const char* from, const char* to){
     cout << e.what() << endl;
     return;
   }
-  
 }
-
 
 
 void ChessBoard::validate_no_check(int row_from, int col_from,
@@ -186,6 +184,7 @@ void ChessBoard::validate_no_check(int row_from, int col_from,
     throw CanNotMove(piece_color, piece_shape, to);
   }		 
 }
+
 
 void ChessBoard::validate_turn(int row_from, int col_from){
   color piece_clr = getPiece(row_from,col_from)->getColor();
@@ -215,6 +214,7 @@ void ChessBoard::validate_pos(const char * pos)
     }
 }
 
+
 void ChessBoard::validate_no_clash_with_own_piece(int row_from, int col_from,
 					  int row_to, int col_to, const char * to){
 
@@ -232,9 +232,6 @@ void ChessBoard::validate_no_clash_with_own_piece(int row_from, int col_from,
 }
 
 
-
-
-
 void ChessBoard::validate_move(int row_from, int col_from,
 			       int row_to, int col_to, const char * to){
   string piece_color =							\
@@ -248,6 +245,7 @@ void ChessBoard::validate_move(int row_from, int col_from,
       throw CanNotMove(piece_color, piece_shape, to);
     }
 }  
+
 
 void ChessBoard::validate_castling(int row_from, int col_from,
 				    int row_to, int col_to, const char * to){
@@ -278,9 +276,6 @@ void ChessBoard::validate_castling(int row_from, int col_from,
 }
 
 
-
-
-
 void ChessBoard::is_in_checkmate(color clr, bool opponent_check){
   if(opponent_check && !kg_can_run_away(clr) &&
      !kg_can_be_shielded(clr)){
@@ -288,7 +283,8 @@ void ChessBoard::is_in_checkmate(color clr, bool opponent_check){
     throw CheckMate(convert_col_to_string(clr)); 
   }
 }
-  
+
+
 void ChessBoard::is_stalemate(color clr, bool opponent_check){
   if(!opponent_check && !kg_can_run_away(clr) &&
      !kg_can_be_shielded(clr)){
@@ -297,6 +293,7 @@ void ChessBoard::is_stalemate(color clr, bool opponent_check){
   }
 }
 
+
 void ChessBoard::is_draw(){
   if(nr_of_pieces_left == 2)
     {
@@ -304,6 +301,7 @@ void ChessBoard::is_draw(){
       throw Draw();
     }
 }
+
 
 bool ChessBoard::is_in_check(color c){
   int kr = getKingRow(c);
@@ -321,6 +319,7 @@ bool ChessBoard::is_in_check(color c){
   
   return false;
 }
+
 
 bool ChessBoard::is_in_check_if_kg_mv_to(color c, int row_to, int col_to){
   int kr = getKingRow(c);
@@ -342,6 +341,7 @@ bool ChessBoard::is_in_check_if_kg_mv_to(color c, int row_to, int col_to){
   simulateUndoMove(kr, kc, row_to, col_to);
   return false;
 }
+
 
 bool ChessBoard::kg_can_run_away(color clr){
   int kr = getKingRow(clr);
@@ -382,14 +382,13 @@ bool ChessBoard::is_rook(int row, int col)
 }
 
 
-
-
 bool ChessBoard::is_nullptr(int row, int col){
   if(getPiece(row,col) == nullptr)
     return true;
   
   return false;
 }
+
 
 bool ChessBoard::kg_can_be_shielded(color clr){
   color opposite = (clr==WHITE ? BLACK : WHITE);
@@ -417,10 +416,6 @@ bool ChessBoard::kg_can_be_shielded(color clr){
 	    }
   return false;
 }
-
-
-
-
 	  
   
 int ChessBoard::getKingRow(color c)
@@ -439,7 +434,6 @@ int ChessBoard::getKingCol(color c)
   else
     return black_king_col;
 }
-
 
 
 void ChessBoard::print_board(){
@@ -486,6 +480,7 @@ int ChessBoard::convert_char_to_int(char character)
   return integer;
 }
 
+
 char ChessBoard::convert_shape_to_symbol(shape s){
   switch(s)
     {
@@ -506,6 +501,7 @@ char ChessBoard::convert_shape_to_symbol(shape s){
     default: return 'p';
     }
 }
+
 
 string ChessBoard::convert_shape_to_string(shape s){
   switch(s)
@@ -543,6 +539,7 @@ Piece * ChessBoard::getPiece(int row, int col)
   return board[row][col];
 }
 
+
 void ChessBoard::movePiece(int row_from, int col_from, int row_to, int col_to)
 {
   deleted_piece = board[row_to][col_to];
@@ -566,6 +563,7 @@ void ChessBoard::simulateMove(int row_from, int col_from, int row_to, int col_to
   board[row_to][col_to] = board[row_from][col_from];
   board[row_from][col_from] = nullptr;
 }
+
 
 void ChessBoard::simulateUndoMove(int row_from, int col_from, int row_to, int col_to)
 {

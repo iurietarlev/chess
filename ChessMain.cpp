@@ -1,3 +1,17 @@
+/**********************************************
+ * This is the main for the chess game program
+ * which is designed using objected oriented 
+ * design principles. All the functionality
+ * can be tested by creating an object of class
+ * ChessBoard and using the function submitMove.
+ * Below a couple of quick tests are written, 
+ * to test edge cases for check, checkmate, 
+ * stalemate and castling.
+ * ********************************************/
+
+//Author: Iurie Tarlev
+
+
 #include"ChessBoard.h"
 #include<iostream>
 
@@ -101,9 +115,9 @@ int main() {
 
   cb.print_board(); 
   
-  cout << "========================\n";
-  cout << "Test Move after chekmate\n";
-  cout << "========================\n\n";
+  cout << "=========================\n";
+  cout << "Test Move after stalemate\n";
+  cout << "=========================\n\n";
  
   cb.submitMove("D8", "H4");
   cout << endl;
@@ -169,8 +183,6 @@ int main() {
   cb.submitMove("A7", "A5");
   cout << endl;
   
-  //attempt to caslte should fail
-  cout << "CASTLING SHOULD FAIL: \n";
   cb.submitMove("F3", "D4"); 
   cb.print_board(); 
     
@@ -182,12 +194,11 @@ int main() {
 
   cb.submitMove("F6", "F4");
   cb.print_board(); 
- 	
+
+  cout << "CASTLING SHOULD FAIL: \n";
   cb.submitMove("E1", "G1");
   cb.print_board(); 
- 
-  cb.submitMove("F5", "F4");
-  //attempt to caslte should succeed
+
   cout << "CASTLING SHOULD FAIL:: \n";
   cb.submitMove("E1", "G1");
   cb.print_board(); 
@@ -197,7 +208,8 @@ int main() {
 
   cb.submitMove("F4", "D4");
   cb.print_board(); 
-
+  
+  cout << "CASTLING SHOULD SUCCEED: \n";
   cb.submitMove("E1", "G1");
   cb.print_board(); 
 
