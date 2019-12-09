@@ -152,16 +152,21 @@ void ChessBoard::submitMove(const char* from, const char* to){
   bool check_opposite = is_in_check(opposite_turn);
 
   //check the following and throw exceptions to main if true
-  is_in_checkmate(opposite_turn, check_opposite);
-  is_stalemate(opposite_turn, check_opposite);
-  is_draw();
-  
+  try{
+    is_in_checkmate(opposite_turn, check_opposite);
+    is_stalemate(opposite_turn, check_opposite);
+    is_draw();
+  }
+  catch(const exception& e){
+    cout << e.what() << endl;
+    return;
+  }
+    
   if(check_opposite)
     cout << convert_col_to_string(opposite_turn)
 	 << " is in check" << endl;
-  
+    
   turn = opposite_turn;
-   
 }
 
 
