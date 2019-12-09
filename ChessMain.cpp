@@ -33,7 +33,7 @@ int main() {
   cout << "  Test Fools CheckMate  \n";
   cout << "========================\n\n";
   cb.resetBoard();
-  
+ 
   cb.submitMove("F2", "F3");
   cb.submitMove("E7", "E5");
   cout << endl;
@@ -146,7 +146,72 @@ int main() {
   cb.submitMove("E1", "G1");
   cb.print_board(); 
   
+   
+  cout << "=========================\n";
+  cout << "===== Test Castling 2====\n";
+  cout << "=========================\n\n";
+
+  cb.resetBoard();
   
+  cb.submitMove("G2", "G4");
+  cb.submitMove("H7", "H5");
+  cout << endl;
+  
+  cb.submitMove("G1", "F3");
+  cb.submitMove("H8", "H6");
+  cout << endl;
+  
+  cb.submitMove("G4", "H5");
+  cb.submitMove("H6", "G6");
+  cout << endl;
+  
+  cb.submitMove("F1", "H3");
+  cb.submitMove("A7", "A5");
+  cout << endl;
+  
+  //attempt to caslte should fail
+  cout << "CASTLING SHOULD FAIL: \n";
+  cb.submitMove("F3", "D4"); 
+  cb.print_board(); 
+    
+  cb.submitMove("G6", "F6");
+  cb.print_board(); 
+	
+  cb.submitMove("F2", "F4");
+  cb.print_board(); 
+
+  cb.submitMove("F6", "F4");
+  cb.print_board(); 
+ 	
+  cb.submitMove("E1", "G1");
+  cb.print_board(); 
+ 
+  cb.submitMove("F5", "F4");
+  //attempt to caslte should succeed
+  cout << "CASTLING SHOULD FAIL:: \n";
+  cb.submitMove("E1", "G1");
+  cb.print_board(); 
+
+  cb.submitMove("D4", "B5");
+  cb.print_board(); 
+
+  cb.submitMove("F4", "D4");
+  cb.print_board(); 
+
+  cb.submitMove("E1", "G1");
+  cb.print_board(); 
+
+  
+
+  cout << "=========================\n";
+  cout << "    Is king in check? \n";
+  cout << "=========================\n\n";
+  
+  cb.submitMove("D4", "G4");
+  cb.print_board(); 
+
+
+ 
   cout << "=========================\n";
   cout << "Alekhine vs. Vasic (1931)\n";
   cout << "=========================\n\n";
